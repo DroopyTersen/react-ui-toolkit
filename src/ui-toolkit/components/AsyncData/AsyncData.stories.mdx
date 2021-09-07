@@ -1,0 +1,37 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { AsyncData } from "./AsyncData.tsx";
+
+<Meta title="Data & State/AsyncData" component={AsyncData} />
+
+# AsyncData
+
+The `AsyncData` component allows us to wrap a component with an async
+function to fetch to the view model. The AsyncData component will automatically...
+
+- render an `ErrorContainer` if the request fails
+- render a loading spinner while the request is pending
+- render the `children` if the request comes back with data
+
+_Example View_
+
+```tsx
+export const ClientListView = () => {
+  return (
+    <div className="clients-screen">
+      <h1>Clients</h1>
+
+      <AsyncData asyncFn={fetchClients} params={[]}>
+        {/* 
+        NOTE: this is a function, not standard JSX 
+        'data' will be whatever the 'asyncFn' returned
+      */}
+        {(data) => <ClientsGrid clients={data.clients} />}
+      </AsyncData>
+    </div>
+  );
+};
+
+const fetchClients = () => {
+  return request<{ clients: Client[] }>("/api/clients");
+};
+```

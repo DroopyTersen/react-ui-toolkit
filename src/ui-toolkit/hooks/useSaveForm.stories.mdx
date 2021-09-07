@@ -1,0 +1,132 @@
+import { Meta } from "@storybook/addon-docs/blocks";
+
+<Meta title="Forms & Inputs/useSaveForm" />
+
+# useSaveForm
+
+A thin wrapper around
+React Hook Form that lets you manage a Save Form (New or Edit).
+
+```typescript
+import { useSaveForm } from "~hooks/useSaveForm";
+
+const { register, isSaving, errors, onSubmit } = useSaveForm({
+  onSave,
+  initial,
+  onSuccess,
+});
+```
+
+_Real world example_
+
+```tsx
+export const ClientForm = ({ initial, lookups, onSuccess, onCancel }: Props) => {
+  const form = useSaveForm({ onSave: saveClient, initial, onSuccess });
+
+  return (
+    <form onSubmit={form.onSubmit}>
+      <fieldset disabled={form.isSaving}>
+        <InputField
+          name="id"
+          id="id"
+          label="Tax ID"
+          error={form.errors.id}
+          ref={form.register({ required: true })}
+        />
+
+        <InputField
+          name="legalName"
+          id="legalName"
+          label="Legal Name"
+          error={form.errors.legalName}
+          ref={form.register({ required: true })}
+        />
+      </fieldset>
+      <div className="form-actions">
+        <button className="btn btn-link mr-2" type="button" onClick={() => onCancel()}>
+          CANCEL
+        </button>
+        <button className="btn btn-primary">SAVE</button>
+      </div>
+    </form>
+  );
+};
+
+const saveClient = async (client: Client) => {
+  await request(`/api/clients/${client.id}`, {
+    method: "PUT",
+    body: JSON.stringify(client),
+  });
+  return client;
+};
+```
+
+## Register Inputs
+
+- The `useSaveForm` hook returns a `register` that you can use on the `ref` of any input in your form
+  - **IMPORTANT**: The input you set the `ref`/`register` on MUST have a `name`.
+  - See React Hook Form form more information
+
+```tsx
+<input className="form-input" name="id" id="id" ref={form.register({ required: true })} />
+```
+
+## Saving (Submit)
+
+- Set your form's `onSubmit` to the `onSubmit` returned by the hook
+- When the user submit's, if the form is valid, `onSave` will be called.
+- If the `onSave` is successful, `onSuccess` will be called and passed whatever `onSave` returned.
+
+> Everything fires off the default `onSubmit` event, so no need for an `onClick`, just use a button where type is `submit`.
+
+```tsx
+<form onSubmit={form.onSubmit}>...</form>
+```
+
+## Validation errors
+
+- `useSaveForm` will return with an `errors` object.
+  - If your input has an error you can find it on the `errors` object by the specified input `name`
+- Wrap each input with a `FormControl`
+- Set the FormControl `error` prop to be `form.errors.yourInput`
+
+```tsx
+<FormControl name="legalName" id="legalName" label="Legal Name" error={form.errors.legalName}>
+  ...
+</FormControl>
+```
+
+## New vs Edit (Hydrating the form)
+
+The `useSaveForm` doesn't really make a distinction between new and edit. It just takes in `initial`. But practically:
+
+- If it is in "New" mode, then the `initial` prop would be empty
+- If it is edit mode, a parent component would take care of fetching the item to edit and passing it in as `initial`
+
+**The parent of the form will try to fetch the item to edit if necessary**
+
+```tsx
+export const ClientFormView = ({ title }) => {
+  const navigate = useNavigate();
+  const { id } = useParams();
+
+  return (
+    <div>
+      <h1>{title}</h1>
+      <AsyncData asyncFn={fetchClient} params={[id]}>
+        {(data) => (
+          <ClientForm
+            initial={data.client}
+            onCancel={() => history.back()}
+            onSuccess={(result) => navigate("/clients/" + result.id)}
+          />
+        )}
+      </AsyncData>
+    </div>
+  );
+};
+
+const fetchClient = async (id) => {
+  return id ? await request("/api/clients/" + id) : { client: {} };
+};
+```

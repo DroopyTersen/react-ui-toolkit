@@ -1,0 +1,22 @@
+html body {
+  p.text-error {
+    font-size: 0.7rem;
+    margin: 0;
+  }
+}
+.form-field {
+  margin-bottom: 1.5rem;
+  .form-label {
+    margin-bottom: 0.35rem;
+  }
+  .form-field-hint {
+    width: 100%;
+    margin-top: 0.25rem;
+    font-size: 0.875em;
+  }
+  span.required {
+    position: relative;
+    top: -2px;
+    left: 2px;
+  }
+}
