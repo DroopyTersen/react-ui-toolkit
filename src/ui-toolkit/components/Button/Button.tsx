@@ -33,10 +33,10 @@ const getColorVariantClass = (color: ThemeColor, variant: ButtonVariant) => {
 type ButtonVariant = "filled" | "outline" | "link";
 // "btn btn-secondary" or "btn-outline-primary"
 interface ExtraProps {
-  /** Which theme color? */
-  color?: ThemeColor;
   /** The type of button. Filled in, outlined etc... */
   variant?: ButtonVariant;
+  /** Which theme color? primary, secondary, etc... */
+  color?: ThemeColor;
   /** A link that looks like a button. If passed a React Router  Link component will be used instead of a button */
   to?: string;
   /** The size of the button. Calling it 'scale' to avoid collision with builtin button.size attribute. */

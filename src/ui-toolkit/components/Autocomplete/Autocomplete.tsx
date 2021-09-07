@@ -26,10 +26,10 @@ export interface AutocompleteProps<OptionType> {
   /** On change provides both the raw input value and the selected option */
   onChange?: (inputValue: string, selectedOption?: OptionType) => void;
   /** What should each option look like? */
-  renderOption: (data: RenderOptionData<OptionType>) => React.ReactNode;
+  renderOption?: (data: RenderOptionData<OptionType>) => React.ReactNode;
   /** What should display in the input when an option is selected? */
-  getInputValue?: (option: OptionType) => string;
-  /** What should be used for the React key? */
+  getValue?: (option: OptionType) => string;
+  /** What should be used for the React key? If not provided, getValue will be used. */
   getKey?: (option: OptionType) => string;
   /** Used to identify the form control */
   id?: string;
@@ -52,19 +52,25 @@ const defaultConfig: AutocompleteConfig = {
 };
 export function Autocomplete<OptionType>({
   initialValue = "",
-  getInputValue = (item) => JSON.stringify(item),
+  getValue = (item) => JSON.stringify(item),
   // eslint-disable-next-line @typescript-eslint/no-empty-function
   onChange,
-  renderOption = () => null,
   getKey,
   id,
   getOptions,
   config,
+  ...props
 }: AutocompleteProps<OptionType>) {
   const { dropdownHeight, debounce, getOptionsOnMount } = {
     ...defaultConfig,
     ...config,
   };
+  const renderOption =
+    props.renderOption ||
+    ((data: RenderOptionData) => (
+      <AutocompleteOption {...data}>{getValue(data.option)}</AutocompleteOption>
+    ));
+
   const isInitialMountRef = useRef(true);
   const [options, setOptions] = useState([]);
   const selectedItemRef = useRef(null);
@@ -80,23 +86,22 @@ export function Autocomplete<OptionType>({
   } = useCombobox({
     initialInputValue: initialValue,
     items: options,
-    itemToString: getInputValue,
+    itemToString: getValue,
     id,
   });
 
   const onChangeRef = useRef(onChange);
   const getOptionsRef = useRef(getOptions);
-  const getInputValueRef = useRef(getInputValue);
+  const getValueRef = useRef(getValue);
 
   useEffect(() => {
     getOptionsRef.current = getOptions;
     onChangeRef.current = onChange;
-    getInputValueRef.current = getInputValue;
+    getValueRef.current = getValue;
   });
 
   useEffect(() => {
-    selectedItemRef.current =
-      options.find((o) => getInputValueRef.current(o) === inputValue) || null;
+    selectedItemRef.current = options.find((o) => getValueRef.current(o) === inputValue) || null;
     onChangeRef.current?.(inputValue, selectedItemRef.current);
   }, [inputValue, options, initialValue]);
 
@@ -128,7 +133,7 @@ export function Autocomplete<OptionType>({
   );
 
   return (
-    <div className="autocomplete">
+    <div className="autocomplete position-relative">
       <div {...getComboboxProps()} className="">
         <Input
           {...getInputProps()}
@@ -165,7 +170,7 @@ export function Autocomplete<OptionType>({
       >
         {isOpen &&
           options.map((item, index) => (
-            <React.Fragment key={getKey?.(item) || getInputValue?.(item) || index}>
+            <React.Fragment key={getKey?.(item) || getValue?.(item) || index}>
               {renderOption({
                 option: item,
                 index,

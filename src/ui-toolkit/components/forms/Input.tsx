@@ -14,9 +14,9 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     ]);
     return (
       <div className={"input-group " + getValidationClass(validationStatus)}>
-        {prefix && <span className="input-group-text p-0">{prefix}</span>}
+        {prefix && <span className="input-group-text py-1 px-2">{prefix}</span>}
         <input className={cssClass} ref={ref} {...rest} />
-        {suffix && <span className="input-group-text p-0">{suffix}</span>}
+        {suffix && <span className="input-group-text py-1 px-2">{suffix}</span>}
       </div>
     );
   }

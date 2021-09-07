@@ -55,7 +55,7 @@ export const PrefixAndSuffix = createStory({
   className: "text-end",
   // It's complaining because HTML Input has a
   // property called prefix with is explicitely a string
-  prefix: (<span className="px-2">$</span>) as any,
-  suffix: <span className="px-1">.00</span>,
+  prefix: (<span>$</span>) as any,
+  suffix: <span>.00</span>,
   type: "number",
 });
