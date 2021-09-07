@@ -141,23 +141,26 @@ export function Autocomplete<OptionType>({
           aria-labelledby={null}
           suffix={
             !!options?.length && (
-              <Button
-                {...getToggleButtonProps()}
-                variant="link"
-                type="button"
-                aria-label="toggle menu"
-                style={{
-                  border: "none",
-                  borderRadius: "0 .25rem .25rem 0",
-                  background: "white",
-                  marginLeft: "-2px",
-                }}
-              >
-                <i
-                  className="bi bi-chevron-down text-body"
-                  style={{ position: "relative", top: "3px" }}
-                ></i>
-              </Button>
+              <div className="bg-white">
+                <Button
+                  {...getToggleButtonProps()}
+                  variant="link"
+                  type="button"
+                  aria-label="toggle menu"
+                  style={{
+                    border: "none",
+                    borderRadius: "0 .25rem .25rem 0",
+                    background: "white",
+                    margin: "-.25rem -.5rem",
+                    marginLeft: "calc(-.5rem - 1px)",
+                  }}
+                >
+                  <i
+                    className="bi bi-chevron-down text-body"
+                    style={{ position: "relative", top: "3px" }}
+                  ></i>
+                </Button>
+              </div>
             )
           }
         />

@@ -1,0 +1,54 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { SourceCodeLink } from "../../components/SourceCodeLink";
+
+<Meta title="Hooks/useScrollToTop" />
+
+# useScrollToTop
+
+A React hook reset the scroll position anytime the url changes.
+
+- Assumes you are using React Router v6
+- Use it once per application
+- Place the hook near the top of your component tree, but inside the `BrowserRouter` (the React Router Context Provider).
+
+### Dependencies
+
+```
+npm i react-router-dom
+```
+
+### Import
+
+```js
+import { useScrollToTop } from "~ui-toolkit/hooks/useScrollToTop";
+```
+
+### Usage
+
+```tsx
+import { BrowserRouter, Route, Routes } from "react-router-dom";
+import { useScrollToTop } from "~ui-toolkit/hooks/useScrollToTop";
+
+function App() {
+  return (
+    <BrowserRouter>
+      <AppRoutes />
+    </BrowserRouter>
+  );
+}
+
+function AppRoutes() {
+  // You only need this hook once per app
+  useScrollToTop();
+
+  return (
+    <Routes>
+      <Route path="/" element={<HomeView />} />
+      <Route path="*" element={<NotFoundView />} />
+      <Route path="/profile" element={<ProfileView />} />
+    </Routes>
+  );
+}
+```
+
+<SourceCodeLink path="hooks/useScrollToTop.ts">View Source</SourceCodeLink>

@@ -1,0 +1,32 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { SourceCodeLink } from "../../components/SourceCodeLink";
+
+<Meta title="Hooks/useComponentSize" />
+
+# useComponentSize
+
+A React hook that will track the size of an element.
+
+### Import
+
+```js
+import { useComponentSize } from "~ui-toolkit/hooks/useComponentSize";
+```
+
+### Usage
+
+```tsx
+function ComponentSizeDemo() {
+  // 1. Create a ref to be attached to a dom element
+  let elementRef = useRef(null);
+  // 2. Pass the ref to the hook
+  let { width, height } = useComponentSize(elementRef);
+
+  return (
+    // 3.  Make sure to attach the ref on a dom element
+    <div ref={elementRef}>A bunch of other stuff would go here</div>
+  );
+}
+```
+
+<SourceCodeLink path="hooks/useComponentSize.ts">View Source</SourceCodeLink>

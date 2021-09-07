@@ -1,11 +1,10 @@
 {
-  "name": "react-toolkit",
+  "name": "react-ui-toolkit",
   "version": "0.0.0",
   "scripts": {
-    "start": "npm run dev",
+    "start": "npm run storybook",
     "dev": "vite",
-    "build": "tsc && vite build",
-    "serve": "vite preview",
+    "build": "npm run build-storybook",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
   },
