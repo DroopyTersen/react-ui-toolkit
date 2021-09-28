@@ -1,0 +1,56 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { SourceCodeLink } from "../../components/SourceCodeLink";
+
+<Meta title="Utils/querystring" />
+
+# Utils: `querystring`
+
+Helpers for translating a querystring back and forth between and object and a string.
+
+> It leverages `URLSearchParams` so if you need to support old browsers you may need to reimplement.
+
+## Import
+
+```js
+import { querystring } from "~ui-toolkit/utils/querystring";
+```
+
+## Usage
+
+### `querystring.parse(queryStr:string)`
+
+Turns a query string into an object
+
+```ts
+// https://mysite.com?foo=bar&beep=boop
+let params = querystring.parse(location.search);
+// { foo: "bar", beep: "boop" }
+```
+
+### `querystring.stringify(params:object)`
+
+Turns an object into a query string.
+
+```ts
+let params = { foo: "bar", beep: "boop" };
+let queryStr = querystring.stringify(params);
+// "foo=bar&beep=boop"
+```
+
+### `querystring.append(url:string, params:object)`
+
+Checks to see if the provided url already has query params, if so joins the new params with an `&`. Otherwise it joins with an `?`
+
+```ts
+// Ex 1: URL that already has query string
+const currentUrl = "https://mysite.com?thing1=value1";
+const params = { foo: "bar", beep: "boop" };
+const newUrl = querystring.append(currentUrl, params);
+// "https://mysite.com?thing1=value1&foo=bar&beep=boop"
+
+// Ex 2: URL that doesn't already have query string
+const currentUrl = "https://mysite.com/thing1";
+const params = { foo: "bar", beep: "boop" };
+const newUrl = querystring.append(currentUrl, params);
+// "https://mysite.com/thing1?foo=bar&beep=boop"
+```

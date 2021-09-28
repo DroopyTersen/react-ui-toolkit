@@ -14,7 +14,7 @@ export const querystring = {
     let searchParams = new URLSearchParams(params);
     return searchParams.toString();
   },
-  appendParms: (url: string, params: { [key: string]: any }) => {
+  append: (url: string, params: { [key: string]: any }) => {
     if (!params) {
       return url;
     }
