@@ -1,0 +1,58 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { SourceCodeLink } from "../../components/SourceCodeLink";
+import { PropsTable } from "../../components/PropsTable";
+
+<Meta title="Hooks/usePersistedState" />
+
+# usePersistedState
+
+A hook that works just like `useState`, except that it persists the value to `localStorage`.
+On load, if there is a value in localStorage, that value will be used as the initial state.
+You can pass an optional 3rd parameter to specify `SessionStorage` should be used.
+
+```javascript
+// Ex: Remember which tab is active across refreshes and browser tabs
+let [tab, setTab] = usePersistedState("myapp:active-tab", "users");
+```
+
+## Import
+
+```tsx
+import { usePersistedState } from "~ui-toolkit/hooks/usePersistedState";
+```
+
+## Params
+
+<PropsTable
+  properties={[
+    {
+      name: "key",
+      type: `string`,
+      description: "The name of of the cache key",
+      isRequired: "Required",
+    },
+    {
+      name: "defaultValue",
+      type: `T`,
+      description: "Will only be used if there isn't anything cache",
+      isRequired: "Required",
+    },
+    {
+      name: "storage",
+      type: `LocalStorage | SessionStorage`,
+      description: "Defaults to LocalStorage.",
+      isRequired: "Optional",
+    },
+  ]}
+/>
+
+## Return value
+
+Returns an Array (a tuple) with a getter and a setter, just like `React.useState`
+
+```javascript
+// You could call 'thing' whatever you want. Just like useState
+let [tabKey, setTabKey] = usePersistedState("myapp-active-tab", "");
+```
+
+<SourceCodeLink path="hooks/usePersistedState.ts">View Source</SourceCodeLink>

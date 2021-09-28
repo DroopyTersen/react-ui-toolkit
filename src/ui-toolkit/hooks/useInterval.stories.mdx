@@ -1,0 +1,52 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { SourceCodeLink } from "../../components/SourceCodeLink";
+import { PropsTable } from "../../components/PropsTable";
+
+<Meta title="Hooks/useInterval" />
+
+# useInterval
+
+Lets you perform execute a function on the specified interval. You can turn it off by passing a `delay` of `0`.
+
+```javascript
+// Ex: Poll for new data every 5 seconds
+useInterval(() => {
+  checkForChanges();
+}, 5000);
+```
+
+## Import
+
+```tsx
+import { useInterval } from "~ui-toolkit/hooks/useInterval";
+```
+
+## Params
+
+<PropsTable
+  properties={[
+    {
+      name: "callback",
+      type: `() => void`,
+      description:
+        "Whatever function you want to call after the specified amount of time. The callback is stored on a ref, so if the call back changes the interval will not reset.",
+      isRequired: "Required",
+    },
+    {
+      name: "delay",
+      type: `number`,
+      description:
+        "Milliseconds. The amount of time you want to wait between repeatedly invoking the passed in callback. If you pass 0, the interval will be turned off.",
+      isRequired: "Required",
+    },
+    {
+      name: "intervalKey",
+      type: `any`,
+      description:
+        "If you pass an interval key, the interval will be reset anytime the key changes.  Without an interval key, the interval is only reset if the delay param changes.",
+      isRequired: "Optional",
+    },
+  ]}
+/>
+
+<SourceCodeLink path="hooks/useInterval.ts">View Source</SourceCodeLink>
