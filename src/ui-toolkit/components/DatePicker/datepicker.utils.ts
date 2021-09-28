@@ -1,5 +1,5 @@
-import * as dateUtils from "~ui-toolkit/utils/dateUtils";
-import { DateUnit } from "~ui-toolkit/utils/dateUtils";
+import * as dateUtils from "../../utils/dateUtils";
+import { DateUnit } from "../../utils/dateUtils";
 
 export const VALUE_FORMAT = "YYYY-MM-DD";
 

@@ -13,10 +13,6 @@ module.exports = {
     },
   },
   webpackFinal: async (config) => {
-    config.resolve.alias = {
-      ...config.resolve.alias,
-      ...aliases,
-    };
     config.module.rules.push({
       test: /\.(svg|ico|jpg|jpeg|png|gif|eot|otf|webp|ttf|woff|woff2|cur|ani)(\?.*)?$/i,
       loader: require.resolve("file-loader"),

@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getClassName } from "~ui-toolkit/utils";
+import { getClassName } from "../../utils";
 
 export const Radio = React.forwardRef<HTMLInputElement, RadioProps>(
   // eslint-disable-next-line

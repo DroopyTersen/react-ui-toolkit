@@ -1,7 +1,7 @@
 import dayjs from "dayjs";
 import * as React from "react";
 
-import { parseDate } from "~ui-toolkit/utils/dateUtils";
+import { parseDate } from "../../utils/dateUtils";
 import useOnClickOutside from "../../hooks/useOnClickOutside";
 
 import { formatValue, next, prev } from "./datepicker.utils";
