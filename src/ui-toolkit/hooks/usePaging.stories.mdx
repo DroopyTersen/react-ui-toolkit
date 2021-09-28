@@ -1,0 +1,44 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { SourceCodeLink } from "../../components/SourceCodeLink";
+import { PropsTable } from "../../components/PropsTable";
+
+<Meta title="Hooks/usePaging" />
+
+# usePaging
+
+A hook to help you manage paging. Helps to deal with things like wrapping around back
+to page 1 when you reach the max number of pages.
+
+```javascript
+// You can grab the whole paging object
+let paging = usePaging(items.length);
+// Or you can destructure
+let { currentPage, goForward, goBack, goTo } = usePaging(items.length);
+```
+
+### Import
+
+```tsx
+import { usePaging } from "~ui-toolkit/hooks/usePaging";
+```
+
+## Params
+
+<PropsTable
+  properties={[
+    {
+      name: "totalItems",
+      type: `number`,
+      description: "The total number of items you have.",
+      isRequired: "Required",
+    },
+    {
+      name: "initialPage",
+      type: `number`,
+      description: "Defaults to 1.",
+      isRequired: "Optional",
+    },
+  ]}
+/>
+
+<SourceCodeLink path="hooks/usePaging.ts">View Source</SourceCodeLink>

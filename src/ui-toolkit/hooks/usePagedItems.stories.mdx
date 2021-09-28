@@ -1,0 +1,65 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { SourceCodeLink } from "../../components/SourceCodeLink";
+import { PropsTable } from "../../components/PropsTable";
+
+<Meta title="Hooks/usePagedItems" />
+
+# usePagedItems
+
+A hook to help you manage only showing items on the current page.
+
+```javascript
+// Pass in the full item set and the number of items per page
+let [pagedItems, paging] = usePagedItems(allItems, 10);
+
+return (
+  <>
+    <Grid>
+      {pagedItems.map((item) => (
+        <Card key={item.id} title={item.name} />
+      ))}
+    </Grid>
+    <div>
+      <button disabled={paging.currentPage <= 1} onClick={paging.goBack}>
+        Prev
+      </button>
+      <button disabled={paging.currentPage >= paging.totalPages} onClick={paging.goForward}>
+        Next
+      </button>
+    </div>
+  </>
+);
+```
+
+### Import
+
+```tsx
+import { usePagedItems } from "~ui-toolkit/hooks/usePaging";
+```
+
+## Params
+
+<PropsTable
+  properties={[
+    {
+      name: "allItems",
+      type: `T[]`,
+      description: "The total item set.",
+      isRequired: "Required",
+    },
+    {
+      name: "itemsPerPage",
+      type: `number`,
+      description: "The number of items to show on each page.",
+      isRequired: "Required",
+    },
+    {
+      name: "initialPage",
+      type: `number`,
+      description: "Defaults to 1.",
+      isRequired: "Optional",
+    },
+  ]}
+/>
+
+<SourceCodeLink path="hooks/usePaging.ts">View Source</SourceCodeLink>
