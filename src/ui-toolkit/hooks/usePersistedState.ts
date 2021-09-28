@@ -21,7 +21,6 @@ export const usePersistedState = <T>(
   });
 
   useEffect(() => {
-    console.log("SAVEING TO SESSION STORAGE", value);
     const valueStr = typeof value === "string" ? value : JSON.stringify(value);
     storage.setItem(key, valueStr);
     // eslint-disable-next-line

@@ -25,7 +25,7 @@ export const FormField = ({
         <div className="d-flex">
           <label className="form-label" htmlFor={name} style={{ position: "relative" }}>
             {label}
-            {required && <span className="required">*</span>}
+            {required && <span className="text-danger required">*</span>}
           </label>
         </div>
       )}
