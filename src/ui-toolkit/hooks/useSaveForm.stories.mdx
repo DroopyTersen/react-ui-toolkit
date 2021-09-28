@@ -1,6 +1,6 @@
 import { Meta } from "@storybook/addon-docs/blocks";
 
-<Meta title="Forms & Inputs/useSaveForm" />
+<Meta title="Hooks/useSaveForm" />
 
 # useSaveForm
 
@@ -8,13 +8,40 @@ A thin wrapper around
 React Hook Form that lets you manage a Save Form (New or Edit).
 
 ```typescript
-import { useSaveForm } from "~hooks/useSaveForm";
+import { useSaveForm } from "~ui-toolkit/hooks/useSaveForm";
 
 const { register, isSaving, errors, onSubmit } = useSaveForm({
-  onSave,
   initial,
+  onSave,
   onSuccess,
 });
+```
+
+**Params**
+
+- `initial` is an object representing the initial values of the form.
+- `onSave` is an async function that will be provided the submitted form values.
+  - This will not be invoked until a valid form is submitted.
+- `onSuccess` will be called when the `onSave` function resolves successfully.
+
+**Returns**
+
+A [full React Hook Form object](https://react-hook-form.com/api/useform/register) with a
+few extra properties tacked on:
+
+- An `isSaving` flag so you can update UI accordingly
+- An `onSubmit` handler you can apply directly to your form
+
+## Dependencies
+
+```
+npm i react-hook-form
+```
+
+## Import
+
+```js
+import { useSaveForm } from "~ui-toolkit/hooks/useSaveForm";
 ```
 
 _Real world example_
