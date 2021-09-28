@@ -29,11 +29,14 @@ export const getCache = (cacheOpts: CacheOptions | string) => {
   if (!opts.key) throw new Error("key is required");
 
   const valueStr = location.getItem(opts.key);
-
-  if (valueStr) {
-    const val = JSON.parse(valueStr);
-    return !_isExpired(val) ? val.payload : null;
-  } else {
+  try {
+    if (valueStr) {
+      const val = JSON.parse(valueStr);
+      return !_isExpired(val) ? val.payload : null;
+    } else {
+      return null;
+    }
+  } catch (err) {
     return null;
   }
 };

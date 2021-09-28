@@ -1,0 +1,116 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { SourceCodeLink } from "../../components/SourceCodeLink";
+
+<Meta title="Utils/cache" />
+
+# Utils: `cache`
+
+Helpers for synchronously working with browser `Storage` apis (`localStorage` and/or `sessionStorage`) with built in capabilities to check expiration.
+
+## Import
+
+```js
+import { getCache, setCache } from "~ui-toolkit/utils/querystring";
+```
+
+## Usage
+
+### `getCache(key:string)`
+
+- Uses the default `CacheOptions` to get a value (see below for explanation of CacheOptions and defaults).
+- Returns `null` if nothing is found
+- It will attempt to parse the value as JSON
+
+```ts
+let currentUser = getCache("myapp:current-user");
+// {
+//   id: "123"
+//   name: "Andrew Petersen"
+// }
+```
+
+### `getCache({key:string, location?:Storage })`
+
+Use this option if you want to override the default storage location.
+
+- `key` is required
+- `location` is optional and should be `localStorage` or `sessionStorage`.
+  - If not provided, the default location will be used.
+- Returns `null` if nothing is found
+- It will attempt to parse the value as JSON
+
+```ts
+let currentUser = getCache({ key: "myapp:current-user", location: sessionStorage });
+// {
+//   id: "123"
+//   name: "Andrew Petersen"
+// }
+```
+
+### `setCache(key:string, value:any)`
+
+- Uses the default `CacheOptions` to store a value.
+- It will attempt to stringify the passed in value (unless it is already a string)
+
+```ts
+let currentUser = {
+  id: "123"
+  name: "Andrew Petersen"
+}
+setCache("myapp:current-user", currentUser);
+```
+
+### `setCache({ key:string, location?:Storage, duration?:number }, value:any)`
+
+- Uses the default `CacheOptions` to store a value.
+- `key` is required
+- `location` is optional and should be `localStorage` or `sessionStorage`.
+  - If not provided, the default will be used.
+- `duration` is the optional number of milliseconds the cached
+  - If not provided, the default will be used.
+- It will stringify the passed in value (unless it is already a string)
+
+```ts
+let currentUser = {
+  id: "123"
+  name: "Andrew Petersen"
+}
+setCache({
+  key: "myapp:current-user",
+  location: sessionStorage,
+  duration: 1000*60*60 // 1 hour
+ }, currentUser);
+```
+
+## `CacheOptions` & Defaults
+
+The `getCache` and `setCache` need to know 3 things:
+
+1. What is the cache key?
+2. `localStorage` or `sessionStorage`
+3. When should the cached value expire?
+
+These are referred to as the `CacheOptions`.
+
+```ts
+export interface CacheOptions {
+  duration?: number;
+  location?: Storage;
+  key?: string;
+}
+```
+
+The `utils/cache.ts` module has some sane defaults
+so that all you need to pass is a cache key string. You can change these defaults
+for your project, but you can also pass a `CacheOptions` directly to `getCache`
+and `setCache` to override the defaults.
+
+_Here the cache is defaulted use `localStorage` with a 1 day expiration._
+
+```ts
+const defaultConfig: CacheOptions = {
+  // 86400000 = 1000 * 60 * 60 * 24 = 1 DAY
+  duration: 86400000,
+  location: localStorage,
+};
+```
