@@ -6,3 +6,5 @@ dist-ssr
 stats.html
 .env.local
 .env
+
+storybook-static
