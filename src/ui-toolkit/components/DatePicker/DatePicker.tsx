@@ -1,4 +1,4 @@
-import "./DatePicker.css";
+import "./DatePicker.scss";
 
 import * as React from "react";
 
@@ -27,7 +27,7 @@ const defaultOptions: DatePickerOptions = {
   checkEnabled: () => true,
 };
 
-interface Props {
+export interface DatePickerProps {
   value?: string;
   onChange?: (string) => void;
   options?: DatePickerOptions;
@@ -36,7 +36,7 @@ interface Props {
 
 const TODAY = formatValue(new Date());
 
-export const DatePicker = React.forwardRef<HTMLInputElement, Props>(
+export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
   // eslint-disable-next-line
   function DatePicker({ value, onChange, options, ...props }, ref) {
     const opts = { ...defaultOptions, ...options };

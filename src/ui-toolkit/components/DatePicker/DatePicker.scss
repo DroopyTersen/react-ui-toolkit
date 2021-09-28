@@ -13,6 +13,7 @@
 }
 .datepicker * {
   box-sizing: border-box;
+  position: relative;
 }
 .datepicker__input-container {
   display: flex;
@@ -26,7 +27,7 @@
 .datepicker__dropdown {
   margin-top: 3px;
   padding: 0 5px 5px 5px;
-  min-width: 18rem;
+  min-width: 10rem;
   max-width: 100vh;
   border-radius: 0.25rem;
 }
@@ -47,6 +48,7 @@
   padding: 2px 0 8px 0;
   align-items: center;
 }
+
 .calendar__header button {
   outline: none;
   border: none;
@@ -63,9 +65,7 @@
 .calendar__header-label {
   margin: 5px 0;
 }
-.calendar__active-date {
-  // display: none;
-}
+
 .calendar__active-date {
   display: block;
   position: absolute;
