@@ -1,9 +1,5 @@
 const path = require("path");
 
-const aliases = {
-  "~ui-toolkit": path.resolve(__dirname, "../src/ui-toolkit"),
-};
-
 module.exports = {
   stories: ["../src/**/*.stories.mdx", "../src/**/*.stories.@(js|jsx|ts|tsx)"],
   addons: ["@storybook/preset-scss", "@storybook/addon-links", "@storybook/addon-essentials"],

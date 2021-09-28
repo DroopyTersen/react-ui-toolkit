@@ -1,6 +1,6 @@
 import React from "react";
 
-import { getClassName } from "~ui-toolkit/utils";
+import { getClassName } from "../../utils";
 import { Button, ButtonProps } from "../Button/Button";
 import { getValidationClass } from "./FormField";
 

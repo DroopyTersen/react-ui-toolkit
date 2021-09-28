@@ -3,7 +3,6 @@
   "version": "0.0.0",
   "scripts": {
     "start": "npm run storybook",
-    "dev": "vite",
     "build": "npm run build-storybook",
     "storybook": "start-storybook -p 6006",
     "build-storybook": "build-storybook"
@@ -35,7 +34,6 @@
     "sass": "^1.38.2",
     "sass-loader": "^10.1.1",
     "style-loader": "^1.3.0",
-    "typescript": "^4.3.2",
-    "vite": "^2.5.2"
+    "typescript": "^4.3.2"
   }
 }

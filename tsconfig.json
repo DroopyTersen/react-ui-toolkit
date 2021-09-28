@@ -1,11 +1,5 @@
 {
   "compilerOptions": {
-    "paths": {
-      "~global/*": ["./src/global/*"],
-      "~common/*": ["./src/common/*"],
-      "~ui-toolkit/*": ["./src/ui-toolkit/*"],
-      "~features/*": ["./src/features/*"]
-    },
     "target": "ESNext",
     "useDefineForClassFields": true,
     "lib": ["DOM", "DOM.Iterable", "ESNext"],

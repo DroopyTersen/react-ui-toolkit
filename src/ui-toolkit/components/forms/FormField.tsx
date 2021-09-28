@@ -3,7 +3,7 @@ import "./forms.scss";
 import React from "react";
 import { FieldError } from "react-hook-form";
 
-import { getClassName } from "~ui-toolkit/utils";
+import { getClassName } from "../../utils";
 
 export const FormField = ({
   name,
