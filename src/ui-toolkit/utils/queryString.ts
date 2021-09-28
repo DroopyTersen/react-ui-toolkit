@@ -1,18 +1,25 @@
-export const parseQuery = (queryString: string): { [key: string]: string } => {
-  const query = {};
-  const pairs = (queryString[0] === "?" ? queryString.substr(1) : queryString).split("&");
-  for (let i = 0; i < pairs.length; i++) {
-    const pair = pairs[i].split("=");
-    query[decodeURIComponent(pair[0])] = decodeURIComponent(pair[1] || "");
-  }
-  return query;
-};
+export const querystring = {
+  parse: (queryString: string) => {
+    if (!queryString) return {};
 
-export const addQueryParams = (url = "", params: { [key: string]: string | number } = {}) => {
-  if (!params) {
-    return url;
-  }
-  const querystring = new URLSearchParams(params as any).toString();
-  const prefix = url.indexOf("?") > -1 ? "&" : "?";
-  return url + prefix + querystring;
+    let searchParams = new URLSearchParams(queryString);
+    let params = {};
+    searchParams.forEach((value, key) => {
+      params[key] = value;
+    });
+
+    return params;
+  },
+  stringify: (params: { [key: string]: any }) => {
+    let searchParams = new URLSearchParams(params);
+    return searchParams.toString();
+  },
+  appendParms: (url: string, params: { [key: string]: any }) => {
+    if (!params) {
+      return url;
+    }
+    const querystring = new URLSearchParams(params as any).toString();
+    const prefix = url.indexOf("?") > -1 ? "&" : "?";
+    return url + prefix + querystring;
+  },
 };
