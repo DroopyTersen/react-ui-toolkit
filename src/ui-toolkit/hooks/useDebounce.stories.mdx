@@ -1,0 +1,111 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { SourceCodeLink } from "../../components/SourceCodeLink";
+import { PropsTable } from "../../components/PropsTable";
+
+<Meta title="Hooks/useDebounce" />
+
+# useDebounce Hooks
+
+These hooks are for when we want to track something that changes quickly (mouse moves, user typing, etc...),
+but wait to trigger the onChange until the updates stop streaming in. You'd typically do this when your onChange does something expensive, like a make network call.
+
+[Blog Post Explanation](https://dev.to/droopytersen/usedebouncedeffect-hook-4204)
+
+## `useDebouncedEffect(effectFn, val)`
+
+When we have a specific effect that should only run once the value has stopped updating
+
+```jsx
+function SearchBox({ onChange, defaultValue = "" }) {
+  // We store one value for the instant updates
+  let [value, setValue] = useState(defaultValue);
+
+  // We only want to call the passed in 'onChange' once the user
+  // has stopped updating the value
+  useDebouncedEffect((debouncedValue) => onChange(debouncedValue), value, 300);
+
+  return <input value={value} onChange={(e) => setValue(e.target.value)} />;
+}
+```
+
+### Import
+
+```tsx
+import { useDebouncedEffect } from "~ui-toolkit/hooks/useDebounce";
+```
+
+### Params
+
+<PropsTable
+  properties={[
+    {
+      name: "effectFn",
+      type: `(debounceValue) => any`,
+      description:
+        "The function to run when the value as stopped updating. It will receive the debounced value as a param",
+      isRequired: "Required",
+    },
+    {
+      name: "value",
+      type: `any`,
+      description: "The value to watch",
+      isRequired: "Required",
+    },
+    {
+      name: "delay",
+      type: `number`,
+      description:
+        "How long to wait before triggering the effectFn. If the value gets updated before the wait is over, the wait restarts.",
+      isRequired: "Required",
+    },
+  ]}
+/>
+
+## `useDebouncedValue(val)`
+
+For when we want to track a value but not until it stops updating.
+
+```jsx
+function SearchBox({ onChange, defaultValue = "" }) {
+  // We store one value for the instant updates
+  let [value, setValue] = useState(defaultValue);
+  let debouncedValue = useDebouncedValue(value, 400);
+
+  return <input value={value} onChange={(e) => setValue(e.target.value)} />;
+}
+```
+
+### Params
+
+<PropsTable
+  properties={[
+    {
+      name: "value",
+      type: `any`,
+      description: "The value to watch",
+      isRequired: "Required",
+    },
+    {
+      name: "delay",
+      type: `number`,
+      description:
+        "How long to wait updating the debounced value. If the value gets updated before the wait is over, the wait restarts.",
+      isRequired: "Required",
+    },
+  ]}
+/>
+
+### Returns
+
+<PropsTable
+  properties={[
+    {
+      name: "debouncedValue",
+      type: `any`,
+      description: "The debounced value",
+      isRequired: "Required",
+    },
+  ]}
+/>
+
+<SourceCodeLink path="hooks/useDebounce.ts">View Source</SourceCodeLink>

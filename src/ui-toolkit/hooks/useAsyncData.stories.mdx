@@ -87,6 +87,12 @@ The hook returns the following signature:
       description: "The error message",
       isRequired: "Optional",
     },
+    {
+      name: "replace",
+      type: `(data:T) => void`,
+      description: "A function you can call to overwrite the data without calling the asyncFn.",
+      isRequired: "Required",
+    },
   ]}
 />
 
