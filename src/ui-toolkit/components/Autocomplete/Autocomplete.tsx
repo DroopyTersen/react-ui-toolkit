@@ -4,7 +4,7 @@ import { useCombobox } from "downshift";
 import React, { useEffect, useRef, useState } from "react";
 
 import { Button } from "../Button/Button";
-import { Input } from "../forms";
+import { Input, InputSuffixButton } from "../forms";
 
 import { useDebouncedEffect } from "../../hooks/useDebounce";
 
@@ -142,24 +142,12 @@ export function Autocomplete<OptionType>({
           suffix={
             !!options?.length && (
               <div className="bg-white">
-                <Button
-                  {...getToggleButtonProps()}
-                  variant="link"
-                  type="button"
-                  aria-label="toggle menu"
-                  style={{
-                    border: "none",
-                    borderRadius: "0 .25rem .25rem 0",
-                    background: "white",
-                    margin: "-.25rem -.5rem",
-                    marginLeft: "calc(-.5rem - 1px)",
-                  }}
-                >
+                <InputSuffixButton {...getToggleButtonProps()} aria-label="toggle menu">
                   <i
                     className="bi bi-chevron-down text-body"
-                    style={{ position: "relative", top: "3px" }}
+                    style={{ position: "relative", top: "1px" }}
                   ></i>
-                </Button>
+                </InputSuffixButton>
               </div>
             )
           }

@@ -1,7 +1,7 @@
 import React from "react";
 
 import { getClassName } from "~ui-toolkit/utils";
-
+import { Button, ButtonProps } from "../Button/Button";
 import { getValidationClass } from "./FormField";
 
 export const Input = React.forwardRef<HTMLInputElement, InputProps>(
@@ -21,6 +21,23 @@ export const Input = React.forwardRef<HTMLInputElement, InputProps>(
     );
   }
 );
+
+export function InputSuffixButton(props: ButtonProps) {
+  return (
+    <Button
+      variant="link"
+      type="button"
+      style={{
+        border: "none",
+        borderRadius: "0 .25rem .25rem 0",
+        background: "white",
+        margin: "-.25rem -.5rem",
+        marginLeft: "calc(-.5rem - 1px)",
+      }}
+      {...(props as any)}
+    />
+  );
+}
 
 export type InputProps = React.HTMLProps<HTMLInputElement> & {
   className?: string;

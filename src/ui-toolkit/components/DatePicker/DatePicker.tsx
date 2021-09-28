@@ -4,7 +4,7 @@ import * as React from "react";
 
 import { parseDate } from "~ui-toolkit/utils/dateUtils";
 import { Button } from "../Button/Button";
-import { Input } from "../forms";
+import { Input, InputSuffixButton } from "../forms";
 
 import { Calendar } from "./Calendar";
 import {
@@ -99,9 +99,9 @@ export const DatePicker = React.forwardRef<HTMLInputElement, DatePickerProps>(
                 setInputValue(e.currentTarget.value);
               }}
               suffix={
-                <Button variant="link" type="button">
-                  <i className="bi bi-calendar-event" />
-                </Button>
+                <InputSuffixButton>
+                  <i className="bi bi-calendar-event text-body" />
+                </InputSuffixButton>
               }
             />
           </div>

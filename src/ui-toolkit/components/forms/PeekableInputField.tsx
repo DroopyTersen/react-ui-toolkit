@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import { InputSuffixButton } from ".";
 
 import { Button } from "../Button/Button";
 
@@ -37,15 +38,14 @@ export const useInputPeeking = () => {
       className: "hide-reveal",
       autoComplete: "new-password",
       suffix: (
-        <Button
-          variant="link"
-          type="button"
+        <InputSuffixButton
+          title={isPeeking ? "Hide value" : "Show value"}
           onClick={() => {
             setIsPeeking((prev) => !prev);
           }}
         >
           <i className={`bi bi-${isPeeking ? "eye-slash" : "eye"}`}></i>
-        </Button>
+        </InputSuffixButton>
       ),
     },
   };
