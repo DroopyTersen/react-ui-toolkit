@@ -32,6 +32,6 @@ export const ClientListView = () => {
 };
 
 const fetchClients = () => {
-  return request<{ clients: Client[] }>("/api/clients");
+  return apiRequest("/api/clients");
 };
 ```

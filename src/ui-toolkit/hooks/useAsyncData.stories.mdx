@@ -1,0 +1,93 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { SourceCodeLink } from "../../components/SourceCodeLink";
+import { PropsTable } from "../../components/PropsTable";
+
+<Meta title="Hooks/useAsyncData" />
+
+# useAsyncData
+
+Helps manage data fetching inside a React component.
+
+1. Pass in any async Function.
+2. Pass in the arguments to that asyncFn
+3. The hook takes care of calling the Async function when the args have changed
+
+```tsx
+function NewsGrid({ siteUrl, numItems }) {
+
+    let { data, isLoading, error } = useAsyncData<NewsPage[]>(api.getNews, [siteUrl, numItems])
+
+    if (isLoading) return <div>Loading...</div>
+    if (error) return <div>Uh Oh!</div>
+
+    return (
+        <Grid>
+         { data.map(item => <NewsCard item={item} /> }
+        </Grid>
+    )
+}
+```
+
+## Import
+
+```js
+import { useAsyncData } from "~ui-toolkit/hooks/useAsyncData";
+```
+
+## Params
+
+The hook takes in the following params:
+
+<PropsTable
+  properties={[
+    {
+      name: "asyncFn",
+      type: `(...args) => Promise<T>`,
+      description:
+        "Any async function. The result of the function will be return on the 'data' property.",
+      isRequired: "Required",
+    },
+    {
+      name: "args",
+      type: `[...args]`,
+      description:
+        "An array of all the parameters that should be passed to the asyncFn.  If any of these params, change, the async function will be called again.",
+      isRequired: "Required",
+    },
+    {
+      name: "initialValue",
+      type: `T`,
+      description: "The initial value for 'data'.",
+      isRequired: "Optional",
+    },
+  ]}
+/>
+
+## Return Value
+
+The hook returns the following signature:
+
+<PropsTable
+  properties={[
+    {
+      name: "isLoading",
+      type: `bool`,
+      description: "Whether the async data function is activly running",
+      isRequired: "Required",
+    },
+    {
+      name: "data",
+      type: `T`,
+      description: "The value for 'data'.",
+      isRequired: "Optional",
+    },
+    {
+      name: "error",
+      type: `string`,
+      description: "The error message",
+      isRequired: "Optional",
+    },
+  ]}
+/>
+
+<SourceCodeLink path="hooks/useAsyncData.ts">View Source</SourceCodeLink>
