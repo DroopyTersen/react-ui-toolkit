@@ -1,4 +1,4 @@
-import { BrowserRouter as Router } from "react-router-dom";
+import { MemoryRouter as Router } from "react-router-dom";
 import "../src/global/styles/global.scss";
 
 export const parameters = {
@@ -13,8 +13,10 @@ export const parameters = {
 
 export const decorators = [
   (Story) => (
-    <Router>
-      <Story />
-    </Router>
+    <div className="story-wrapper">
+      <Router>
+        <Story />
+      </Router>
+    </div>
   ),
 ];
