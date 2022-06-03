@@ -12,4 +12,9 @@ module.exports = {
   features: {
     storyStoreV7: true,
   },
+  async viteFinal(config, { configType }) {
+    config.base = "/react-ui-toolkit/";
+
+    return config;
+  },
 };
