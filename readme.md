@@ -14,3 +14,9 @@ npx degit https://github.com/DroopyTersen/react-ui-toolkit/src/ui-toolkit src/ui
 ```
 
 ## [Demo & Docs](https://droopytersen.github.io/react-ui-toolkit)
+
+TODO
+
+- [ ] Character counter story
+- [ ] Tabs story
+- [ ] Rewrite modal with Radix Dialog

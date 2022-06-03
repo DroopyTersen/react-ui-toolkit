@@ -7,7 +7,7 @@ export interface CacheOptions {
 const defaultConfig: CacheOptions = {
   // 86400000 = 1000 * 60 * 60 * 24 = 1 DAY
   duration: 86400000,
-  location: localStorage,
+  location: typeof window !== "undefined" ? window.localStorage : null,
 };
 
 const _isExpired = (cacheValue) => {

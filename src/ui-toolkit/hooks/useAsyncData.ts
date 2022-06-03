@@ -46,11 +46,7 @@ function reducer<T>(state: AsyncDataState<T>, action: any) {
   }
 }
 
-export default function useAsyncData<T>(
-  asyncFn: (...args) => Promise<T>,
-  args: any[],
-  initialValue: T
-) {
+export function useAsyncData<T>(asyncFn: (...args) => Promise<T>, args: any[], initialValue: T) {
   const [state, dispatch] = useReducer(reducer, {
     isLoading: false,
     error: "",

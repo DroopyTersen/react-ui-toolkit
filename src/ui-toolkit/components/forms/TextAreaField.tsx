@@ -1,5 +1,4 @@
 import React from "react";
-
 import { FormField, FormFieldProps, getValidationStatus, pluckFormFieldProps } from "./FormField";
 import { TextArea, TextAreaProps } from "./TextArea";
 

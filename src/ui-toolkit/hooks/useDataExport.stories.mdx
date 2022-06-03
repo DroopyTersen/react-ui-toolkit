@@ -1,0 +1,79 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { PropsTable, SourceCodeLink } from "../docs";
+
+<Meta title="Hooks/useDataExport" />
+
+# useDataExport
+
+A hook that returns a function to export tabular data to csv and prompt a browser download
+
+```javascript
+const props: DataExportProps = {
+  columns: {
+    quoteNumber: { title: "Quote Number", format: (value) => value },
+    createdOn: { title: "Created On", format: (value) => formatDateOnly(value, "M/D/YY") },
+    updatedOn: { title: "Last Update", format: (value) => getFromNow(value) },
+    projectName: { title: "Project Name", format: (value) => value },
+    quoteName: { title: "Quote Name", format: (value) => value },
+    totalCustomerPrice: { title: "Amount", format: (value) => formatUSCurrency(value || 0) },
+  },
+  format: "csv",
+  fileName: "quotes.csv",
+};
+
+let exportFn = useDataExport(items, props);
+
+exportFn();
+```
+
+## Import
+
+```tsx
+import { useDataExport } from "~ui-toolkit/hooks/useDataExport";
+```
+
+## Params
+
+<PropsTable
+  properties={[
+    {
+      name: "items",
+      type: `Array`,
+      description: "An array containing the records to export",
+      isRequired: "Required",
+    },
+    {
+      name: "props",
+      type: `object`,
+      description: "The properties specifying which columns to export, etc.",
+      isRequired: "Required",
+    },
+  ]}
+/>
+
+## Props Object Parameter
+
+<PropsTable
+  properties={[
+    {
+      name: "columns",
+      type: `object`,
+      description: "An object containing a title and optional format function",
+      isRequired: "Required",
+    },
+    {
+      name: "fileName",
+      type: `string`,
+      description: "The namea of the file to export",
+      isRequired: "Required",
+    },
+    {
+      name: "format",
+      type: `string`,
+      description: "The file format to create. Currently only supports csv",
+      isRequired: "Optional",
+    },
+  ]}
+/>
+
+<SourceCodeLink path="hooks/useDataExport.ts">View Source</SourceCodeLink>

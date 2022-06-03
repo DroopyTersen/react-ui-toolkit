@@ -1,4 +1,9 @@
 import dayjs from "dayjs";
+import localizedFormat from "dayjs/plugin/localizedFormat";
+import relativeTime from "dayjs/plugin/relativeTime";
+
+dayjs.extend(relativeTime);
+dayjs.extend(localizedFormat);
 
 type Dateish = Date | string;
 
@@ -30,6 +35,10 @@ export const getAgeInYears = (date: Dateish): number => {
   return dayjs().diff(date, "years");
 };
 
+export const getFromNow = (date: Dateish): string => {
+  return dayjs(date).fromNow();
+};
+
 export const getMinutesFromNow = (date: Dateish): number => {
   return dayjs(date).diff(new Date(), "minutes");
 };
@@ -38,8 +47,25 @@ export const getSecondsFromNow = (date: Dateish): number => {
   return dayjs(date).diff(new Date(), "seconds");
 };
 
+export const addMinutes = (date: Dateish, minutes: number): Date => {
+  return dayjs(date).add(minutes, "minutes").toDate();
+};
+
 export const formatDate = (date: Dateish, format: string) => {
   if (!date) return "";
+  return dayjs(date).format(format);
+};
+
+export const formatDateOnly = (date: string, format: string) => {
+  if (!date) return "";
+
+  // If the time portion exists, remove it. The time portion can cause issues when set to midnight (i.e. 2021-11-29T:00:00:00Z).
+  // When formatting the date, it is adjusted to local time from UTC, possibly causing the date to appear as the day before.
+  const timeIndex = date.indexOf("T");
+  if (timeIndex >= 0) {
+    date = date.substring(0, timeIndex);
+  }
+
   return dayjs(date).format(format);
 };
 

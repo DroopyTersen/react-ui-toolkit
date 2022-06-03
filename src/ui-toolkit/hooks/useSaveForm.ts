@@ -1,14 +1,17 @@
 import { BaseSyntheticEvent, useState } from "react";
-import { SubmitHandler, useForm } from "react-hook-form";
+import { SubmitHandler, useForm, UseFormReturn } from "react-hook-form";
 
 export const useSaveForm = <TFormValues = any>({
   onSave,
   onSuccess,
+  onError,
   initial,
-}: SaveFormParams<TFormValues>) => {
+  shouldUnregister = false,
+}: SaveFormParams<TFormValues>): UseSaveFormReturn<TFormValues> => {
   const [isSaving, setIsSaving] = useState(false);
   const form = useForm<TFormValues>({
     defaultValues: (initial as any) || {},
+    shouldUnregister,
   });
 
   const onValidSubmit: SubmitHandler<TFormValues> = async (data, event) => {
@@ -18,6 +21,9 @@ export const useSaveForm = <TFormValues = any>({
       onSuccess(saveResult, event);
     } catch (err) {
       setIsSaving(false);
+      if (onError) {
+        onError(err);
+      }
     }
   };
   const onSubmit = form.handleSubmit(onValidSubmit);
@@ -34,5 +40,12 @@ export const useSaveForm = <TFormValues = any>({
 export interface SaveFormParams<TFormValues = any> {
   onSave: (formValues: TFormValues, event: BaseSyntheticEvent) => Promise<TFormValues>;
   onSuccess: (result: TFormValues, event: BaseSyntheticEvent) => void;
+  onError?: (error) => void;
   initial: TFormValues;
+  shouldUnregister?: boolean;
+}
+
+export interface UseSaveFormReturn<TFormValues> extends UseFormReturn<TFormValues> {
+  isSaving: boolean;
+  onSubmit: (event: any) => void;
 }

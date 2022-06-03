@@ -1,0 +1,96 @@
+html {
+  .ui-toolkit-table {
+    margin-bottom: 0;
+    & tbody {
+      border-top: 0 !important;
+      & tr {
+        height: 60px;
+        vertical-align: middle;
+      }
+    }
+  }
+
+  .ui-toolkit-table th.sortable {
+    cursor: pointer;
+  }
+  table {
+    text-align: left;
+    position: relative;
+    white-space: nowrap;
+  }
+
+  .ui-toolkit-table thead {
+    background-color: white;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+    box-shadow: inset 0 -1px 0 var(--neutral-700);
+  }
+  .ui-toolkit-table tfoot {
+    background-color: white;
+    position: sticky;
+    bottom: 0;
+    z-index: 10;
+    box-shadow: inset 0 1px 0 var(--neutral-700);
+    font-weight: bold;
+  }
+  .ui-toolkit-table .sticky,
+  .ui-toolkit-table .sticky-label,
+  .ui-toolkit-table th:first-child {
+    background-color: white;
+  }
+
+  @media (min-width: 900px) {
+    .ui-toolkit-table .sticky-label,
+    .ui-toolkit-table thead tr th:first-child,
+    .ui-toolkit-table tbody tr td.sticky,
+    .ui-toolkit-table tfoot tr td.sticky {
+      // background-color: white !important;
+      position: sticky;
+      left: 0;
+      z-index: 9;
+      box-shadow: inset -1px 0 0 var(--neutral-700);
+      width: 1% !important;
+    }
+    .ui-toolkit-table thead tr th.sticky-label,
+    .ui-toolkit-table tbody tr td.sticky-label,
+    .ui-toolkit-table tfoot tr td.sticky-label {
+      left: 120px !important;
+    }
+
+    .ui-toolkit-table thead tr th:last-child {
+      box-shadow: inset 0 0 0 var(--neutral-700) !important;
+    }
+    .actions-cell {
+      background-color: var(--secondary-000);
+      position: sticky;
+      right: 0;
+      z-index: 1;
+      box-shadow: inset 1px 0 0 var(--neutral-700);
+      width: 1% !important;
+    }
+    thead .actions-cell {
+      opacity: 0.9;
+    }
+  }
+
+  .truncate {
+    span,
+    a {
+      max-width: 350px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      display: block;
+    }
+  }
+
+  .actions-cell.current {
+    z-index: 2;
+  }
+}
+
+.ui-toolkit-table-spaced {
+  border-collapse: separate;
+  border-spacing: 0 0.85rem;
+}

@@ -1,6 +1,6 @@
 import React from "react";
 
-import useAsyncData from "../../hooks/useAsyncData";
+import { useAsyncData } from "../../hooks/useAsyncData";
 import { Loading } from "../Loading/Loading";
 
 export const AsyncData = <T extends unknown>(props: AsyncDataProps<T>) => {

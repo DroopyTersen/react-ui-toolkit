@@ -1,6 +1,5 @@
 import { Meta, Story, Canvas } from "@storybook/addon-docs";
-import { SourceCodeLink } from "../../components/SourceCodeLink";
-import { PropsTable } from "../../components/PropsTable";
+import { PropsTable, SourceCodeLink } from "../docs";
 
 <Meta title="Hooks/usePaging" />
 
@@ -33,9 +32,9 @@ import { usePaging } from "~ui-toolkit/hooks/usePaging";
       isRequired: "Required",
     },
     {
-      name: "initialPage",
-      type: `number`,
-      description: "Defaults to 1.",
+      name: "props",
+      type: `object`,
+      description: "Takes initialPage property.",
       isRequired: "Optional",
     },
   ]}

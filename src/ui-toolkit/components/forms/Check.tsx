@@ -1,5 +1,4 @@
 import React from "react";
-
 import { getClassName } from "../../utils";
 
 export const Check = React.forwardRef<HTMLInputElement, CheckProps>(
@@ -11,12 +10,12 @@ export const Check = React.forwardRef<HTMLInputElement, CheckProps>(
         <input
           className="form-check-input"
           type="checkbox"
-          id={name}
+          id={id || name}
           name={name}
           ref={ref}
           {...rest}
         />
-        <label className="form-check-label" htmlFor={name}>
+        <label className="form-check-label" htmlFor={id || name}>
           {children}
         </label>
       </div>

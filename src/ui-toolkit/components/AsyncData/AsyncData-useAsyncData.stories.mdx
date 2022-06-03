@@ -1,0 +1,109 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+
+<Meta title="Async Data/1. AsyncData vs useAsyncData" />
+
+# AsyncData vs useAsyncData
+
+There are 2 primary ways to fetch data in the application:
+
+1. The `AsyncData` component
+2. The `useAsyncData` hook
+
+Both share the same API, but `AsyncData` is a higher level abstraction.
+
+- Try to leverage `AsyncData` first
+- Drop down to `useAsyncData` for more control and/or outlier scenarios.
+
+Here is an example that searches projects with `useAsyncData`.
+
+_NOTE: **This would not be the preferred approach**. See further below for the `AsyncData` example._
+
+```tsx
+const DataDemoPage: NextPage = () => {
+  // Use React state to track the search text
+  let [name, setName] = useState("");
+
+  // get an instance of the Projects Data Service
+  let projects = useProjectService();
+
+  // Pass the name to the searchProjects method. Only make the request if the user has typed 2 charachters.
+  let { data, isLoading, error } = useAsyncData(projects.searchProjects, [name], {
+    skip: !name || name?.length < 3,
+  });
+
+  return (
+    <Main className="data-demo-page">
+      {/* User input for the search text */}
+      <InputField
+        type="search"
+        label="Search Projects"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+
+      {/* If its loading show a spinner */}
+      {isLoading && <Loading />}
+
+      {/* If there is an error let the user know */}
+      {error && <ErrorContainer title="Unable to search Projects" />}
+
+      {/* If there is data, show the results */}
+      {data && (
+        <Grid>
+          {data?.map((project) => (
+            <Card key={project.projectId} title={project.projectName} />
+          ))}
+        </Grid>
+      )}
+    </Main>
+  );
+};
+
+export default DataDemoPage;
+```
+
+- Notice how in the JSX we have to do checks for `isLoading` and `error`?
+  - That's tedious and very common
+  - We technically aren't being totally exhaustive here because we could
+    get into an impossible state where we show both error container and a data grid.
+
+The `AsyncData` component abstracts away the render checks for `error` and `isLoading`. Here is the same same example as above, but with `AsyncData`:
+
+```tsx
+const DataDemoPage: NextPage = () => {
+  // Use React state to track the search text
+  let [name, setName] = useState("");
+
+  // get an instance of the Projects Data Service
+  let projects = useProjectService();
+
+  return (
+    <Main className="data-demo-page">
+      {/* User input for the search text */}
+      <InputField
+        type="search"
+        label="Search Projects"
+        value={name}
+        onChange={(e) => setName(e.target.value)}
+      />
+
+      {/* The AsyncData component can be used instead of useAsyncData for most scenarios. */}
+      <AsyncData
+        asyncFn={projects.searchProjects}
+        params={[name]}
+        options={{ skip: !name || name.length < 3 }}
+      >
+        {(data) => (
+          <Grid>
+            {data?.map((project) => (
+              <Card key={project.projectId} title={project.projectName} />
+            ))}
+          </Grid>
+        )}
+      </AsyncData>
+    </Main>
+  );
+};
+
+export default DataDemoPage;
+```

@@ -1,8 +1,5 @@
-import "./forms.scss";
-
 import React from "react";
 import { FieldError } from "react-hook-form";
-
 import { getClassName } from "../../utils";
 
 export const FormField = ({
@@ -66,16 +63,8 @@ export interface FormFieldProps {
 }
 
 export const pluckFormFieldProps = (props: any) => {
-  const {
-    name,
-    label,
-    validationStatus,
-    error,
-    required,
-    hint,
-    className,
-    ...formControlProps
-  } = props;
+  const { name, label, validationStatus, error, required, hint, className, ...formControlProps } =
+    props;
 
   return {
     formFieldProps: {
@@ -90,6 +79,7 @@ export const pluckFormFieldProps = (props: any) => {
 
     formControlProps: {
       name,
+      id: name,
       ...formControlProps,
     },
   };

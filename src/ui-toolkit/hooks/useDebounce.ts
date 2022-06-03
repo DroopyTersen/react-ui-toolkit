@@ -1,4 +1,4 @@
-import React, { useState, useEffect, useRef, EffectCallback } from "react";
+import { useEffect, useRef, useState } from "react";
 // https://dev.to/droopytersen/usedebouncedeffect-hook-4204
 
 export function useDebouncedEffect<T>(
@@ -14,6 +14,27 @@ export function useDebouncedEffect<T>(
   useEffect(() => {
     if (effectRef.current) {
       return effectRef.current(updatedValue);
+    }
+  }, [updatedValue]);
+}
+
+export function useDebouncedUpdateEffect<T>(
+  effectFn: (debouncedValue: T) => void | (() => void),
+  value: T,
+  delay: number
+) {
+  let effectRef = useRef(effectFn);
+  let isFirstPass = useRef(true);
+  let updatedValue = useDebouncedValue(value, delay);
+  useEffect(() => {
+    effectRef.current = effectFn;
+  }, [effectFn]);
+  useEffect(() => {
+    if (effectRef.current && !isFirstPass.current) {
+      return effectRef.current(updatedValue);
+    }
+    if (isFirstPass.current) {
+      isFirstPass.current = false;
     }
   }, [updatedValue]);
 }

@@ -20,3 +20,50 @@ html body {
     left: 2px;
   }
 }
+.form-check {
+  .form-check-input {
+    padding: 6px;
+    margin-right: 0;
+    cursor: pointer;
+  }
+  .form-check-label {
+    cursor: pointer;
+  }
+}
+.has-value {
+  .input-group {
+    border: 3px solid $success;
+    border-radius: 7px;
+  }
+  + svg {
+    color: $success;
+    visibility: visible !important;
+  }
+}
+.input-group .input-group-text {
+  display: flex;
+  align-items: stretch;
+}
+.input-group .input-group-text.is-invalid {
+  border-color: $danger;
+  background-repeat: no-repeat;
+}
+.input-group .input-group-text > button > svg {
+  color: var(--neutral-400);
+}
+.kolbe-picker__menu {
+  overflow-wrap: break-word;
+}
+.price-adjustment-form {
+  .form-field {
+    margin-bottom: 0;
+    .input-group {
+      width: 130px;
+    }
+  }
+  .form-check {
+    width: 130px;
+    text-align: left;
+    justify-content: flex-start !important;
+  }
+}

@@ -1,0 +1,113 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs/blocks";
+import { Surface } from "../Surface/Surface";
+
+<Meta title="Design System/Grid Layout" />
+
+# Grid Layouts
+
+Bootstrap 5 comes with two separate grid systems. **We are using the new one based on CSS Grid**
+
+[Bootstrap CSS Grid Docs](https://getbootstrap.com/docs/5.1/layout/css-grid/#examples)
+
+> **Important!** If you go to the docs, currently the
+> default [Grid](https://getbootstrap.com/docs/5.1/layout/grid/) layout is **NOT** what we want.
+> **We want [CSS Grid](https://getbootstrap.com/docs/5.1/layout/css-grid/#examples)**.
+
+## Grid Basics
+
+- Bootstrap's new grid system is based on `12`
+- The grid parent gets a class of `grid`
+- Each direct child gets a class of `grid-col-*` where `*` is a number between 1 and 12
+
+> The old grid system was based on 12 too, but with the new the markup is cleaner. It no longer needs a wrapper `.row` and no longer uses negative margins (phew...).
+
+```tsx
+<div className="grid">
+  <Surface className="g-col-8">
+    <h2>Main Stuff</h2>
+  </Surface>
+
+  <Surface className="g-col-4">
+    <h2>Right Widget</h2>
+  </Surface>
+
+  <Surface className="g-col-12">
+    <h2>Full Width</h2>
+  </Surface>
+</div>
+```
+
+<div className="grid bg-body p-4">
+<Surface className="g-col-8">
+  <h2>Main Stuff</h2>
+</Surface>
+
+<Surface className="g-col-4">
+  <h2>Right Widget</h2>
+</Surface>
+
+<Surface className="g-col-12">
+    <h2>Full Width</h2>
+</Surface>
+</div>
+
+## Responsive Grids
+
+If we wanted the previous layout to switch to a vertical stack on mobile, we could do...
+
+- The first class `g-col-12` is applies to everything
+- The second class `g-col-md-8` only kicks in if the device width is at least the configured `md` breakpoint.
+
+```tsx
+<div className="grid">
+  <Surface className="g-col-12 g-col-md-8">
+    <h2>Main Stuff</h2>
+  </Surface>
+
+  <Surface className="g-col-12 g-col-md-4">
+    <h2>Right Widget</h2>
+  </Surface>
+
+  <Surface className="g-col-12">
+    <h2>Full Width</h2>
+  </Surface>
+</div>
+```
+
+<div className="grid bg-body p-4">
+<Surface className="g-col-12 g-col-md-8">
+  <h2>Main Stuff</h2>
+</Surface>
+
+<Surface className="g-col-12 g-col-md-4">
+  <h2>Right Widget</h2>
+</Surface>
+
+<Surface className="g-col-12">
+    <h2>Full Width</h2>
+</Surface>
+</div>
+
+## Start Column (offsets)
+
+If you want a grid child to line up at a specific column, you can use the `g-start-*` class.
+
+```tsx
+<div className="grid">
+  <Surface className="g-col-6 g-start-6">
+    <h2>Right Aligned Widget</h2>
+  </Surface>
+  <Surface className="g-col-12">
+    <h2>Full Width</h2>
+  </Surface>
+</div>
+```
+
+<div className="grid bg-body p-4">
+  <Surface className="g-col-6 g-start-7">
+    <h2>Right Aligned idget</h2>
+  </Surface>
+  <Surface className="g-col-12">
+    <h2>Full Width</h2>
+  </Surface>
+</div>

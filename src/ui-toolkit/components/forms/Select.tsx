@@ -1,7 +1,5 @@
 import React from "react";
-
 import { getClassName } from "../../utils";
-
 import { getValidationClass } from "./FormField";
 
 export const Select = React.forwardRef<HTMLSelectElement, SelectProps>(

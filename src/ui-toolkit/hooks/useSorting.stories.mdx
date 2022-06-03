@@ -1,0 +1,52 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { PropsTable, SourceCodeLink } from "../docs";
+
+<Meta title="Hooks/useSorting" />
+
+# useSorting
+
+A hook to help you manage sorting. Helps to deal with things like wrapping around back
+to page 1 when you reach the max number of pages.
+
+```javascript
+// You can grab the whole sorting object
+let sorting = useSorting(items, { sortKey: "name", sortDir: "asc" });
+// Or you can destructure
+let { showingItems, onSort, sortKey, sortDir } = useSorting(items, {
+  sortKey: "name",
+  sortDir: "asc",
+});
+```
+
+### Import
+
+```tsx
+import { useSorting } from "~ui-toolkit/hooks/useSorting";
+```
+
+## Params
+
+<PropsTable
+  properties={[
+    {
+      name: "items",
+      type: `array`,
+      description: "The items to sort.",
+      isRequired: "Required",
+    },
+    {
+      name: "initial",
+      type: `object`,
+      description: "Takes sortDir (asc or desc) and/or sortKey properties.",
+      isRequired: "Optional",
+    },
+    {
+      name: "sortMethod",
+      type: `function`,
+      description: "The sort method to use if complex sorting logic is required.",
+      isRequired: "Optional",
+    },
+  ]}
+/>
+
+<SourceCodeLink path="hooks/useSorting.ts">View Source</SourceCodeLink>

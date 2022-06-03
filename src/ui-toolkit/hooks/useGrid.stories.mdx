@@ -1,0 +1,42 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { PropsTable, SourceCodeLink } from "../docs";
+
+<Meta title="Hooks/useGrid" />
+
+# useGrid
+
+A hook to help you create and pass props to grid components. Helps to deal with things like paging the items.
+
+```javascript
+// You can grab the whole grid object
+let grid = useGrid(items, { pageSize: 25 });
+// Or you can destructure
+let { showingItems, paging, stats } = useGrid(items, { pageSize: 25 });
+```
+
+### Import
+
+```tsx
+import { useGrid } from "~ui-toolkit/hooks/useGrid";
+```
+
+## Params
+
+<PropsTable
+  properties={[
+    {
+      name: "items",
+      type: `array`,
+      description: "The items to sort.",
+      isRequired: "Required",
+    },
+    {
+      name: "props",
+      type: `object`,
+      description: "Takes optional pageSize property.",
+      isRequired: "Optional",
+    },
+  ]}
+/>
+
+<SourceCodeLink path="hooks/useGrid.ts">View Source</SourceCodeLink>

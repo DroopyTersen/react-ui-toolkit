@@ -1,0 +1,10 @@
+.ui-toolkit-tablist {
+  & li {
+    & [aria-selected="true"] {
+      border-bottom: 0;
+    }
+    & .active-tab {
+      border-bottom: 5px solid var(--neutral-800);
+    }
+  }
+}

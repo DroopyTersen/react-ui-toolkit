@@ -1,8 +1,6 @@
 import React from "react";
 import { FormField } from "../forms";
-
-import { setupStories } from "../_storybook/storybook.utils";
-import { Autocomplete, AutocompleteOption, AutocompleteProps } from "./Autocomplete";
+import { Autocomplete } from "./Autocomplete";
 
 export default {
   title: "Forms & Inputs/Autocomplete",
@@ -156,7 +154,7 @@ export const DelayGetOptions = () => {
 interface Fruit {
   title: string;
 }
-const fruits: Fruit[] = [
+export const fruits: Fruit[] = [
   {
     title: "Apple",
   },

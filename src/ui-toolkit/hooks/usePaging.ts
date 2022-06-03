@@ -1,24 +1,46 @@
-import { useEffect, useRef, useState } from "react";
-import { useQueryState } from "./useQueryState";
+import { useEffect, useState } from "react";
 import { useUpdateEffect } from "./useUpdateEffect";
 
-export function usePaging(totalPages: number, initialPage = 1) {
-  let [currentPageStr, setCurrentPage] = useQueryState("page", initialPage + "");
-  const currentPage = parseInt(currentPageStr) || initialPage;
+function validatePageNumber(currentPage: number, totalPages: number): number {
+  if (currentPage) {
+    const qsPage = parseInt(currentPage + "");
+    if (!Number.isNaN(qsPage)) {
+      currentPage = qsPage;
+    } else {
+      return 1;
+    }
+  }
+
+  // If current page is too high, set it to the last page
+  // if (totalPages > 0 && currentPage > totalPages) return totalPages;
+
+  // If current page is too high, set it to the first page
+  if (totalPages > 0 && currentPage > totalPages) return 1;
+  else if (currentPage < 1) return 1;
+
+  return currentPage;
+}
+
+export function usePaging(totalPages: number, { initialPage = 1 } = {}) {
+  const [currentPage, setCurrentPage] = useState(() => validatePageNumber(initialPage, totalPages));
+  useEffect(() => {
+    setCurrentPage(validatePageNumber(initialPage, totalPages));
+  }, [initialPage, totalPages]);
+
   let goBack = () => {
     let newPage = currentPage - 1;
     if (newPage < 1) newPage = totalPages;
-    setCurrentPage(newPage + "");
+    setCurrentPage(newPage);
   };
   let goForward = () => {
     let newPage = currentPage + 1;
     if (newPage > totalPages) newPage = 1;
-    setCurrentPage(newPage + "");
+    setCurrentPage(newPage);
   };
   let goTo = (pageNumber: number) => {
     if (pageNumber > totalPages) pageNumber = totalPages;
     if (pageNumber < 1) pageNumber = 1;
-    setCurrentPage(pageNumber + "");
+    setCurrentPage(pageNumber);
   };
 
   return {
@@ -33,10 +55,10 @@ export function usePaging(totalPages: number, initialPage = 1) {
 export const usePagedItems = function <T = any>(
   allItems: T[],
   itemsPerPage: number,
-  intialPage = 1
+  { initialPage = 1 } = {}
 ) {
   let totalPages = Math.ceil(allItems.length / itemsPerPage);
-  let paging = usePaging(totalPages, intialPage);
+  let paging = usePaging(totalPages, { initialPage });
   let startIndex = (paging.currentPage - 1) * itemsPerPage;
   let endIndex = startIndex + itemsPerPage;
   let isWrapping = endIndex > allItems.length;
@@ -47,8 +69,7 @@ export const usePagedItems = function <T = any>(
   // }
 
   useUpdateEffect(() => {
-    console.log("All Items changed");
-    paging.goTo(intialPage);
+    paging.goTo(1);
   }, [allItems]);
 
   return [items, paging] as [T[], PagingContext];

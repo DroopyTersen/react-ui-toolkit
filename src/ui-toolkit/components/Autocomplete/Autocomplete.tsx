@@ -2,11 +2,9 @@
 
 import { useCombobox } from "downshift";
 import React, { useEffect, useRef, useState } from "react";
-
-import { Button } from "../Button/Button";
-import { Input, InputSuffixButton } from "../forms";
-
+import { BsChevronDown } from "react-icons/bs";
 import { useDebouncedEffect } from "../../hooks/useDebounce";
+import { Input, InputSuffixButton } from "../forms";
 
 export interface RenderOptionData<OptionType = any> {
   option: OptionType;
@@ -35,6 +33,12 @@ export interface AutocompleteProps<OptionType> {
   id?: string;
   /** Additional autocomplete configuration */
   config?: AutocompleteConfig;
+  /** Used to display status-based styling */
+  validationStatus?: ValidationStatus;
+  /** Pass control reference to child input element */
+  inputRef?: React.ForwardedRef<HTMLInputElement>;
+  /** Maximum number of characters the textbox will allow */
+  maxLength?: number;
 }
 export interface AutocompleteConfig {
   /** How long to delay the call to getOptions. Defaults to 0. */
@@ -53,12 +57,14 @@ const defaultConfig: AutocompleteConfig = {
 export function Autocomplete<OptionType>({
   initialValue = "",
   getValue = (item) => JSON.stringify(item),
-  // eslint-disable-next-line @typescript-eslint/no-empty-function
   onChange,
   getKey,
   id,
   getOptions,
   config,
+  validationStatus,
+  inputRef,
+  maxLength = null,
   ...props
 }: AutocompleteProps<OptionType>) {
   const { dropdownHeight, debounce, getOptionsOnMount } = {
@@ -136,19 +142,16 @@ export function Autocomplete<OptionType>({
     <div className="autocomplete position-relative">
       <div {...getComboboxProps()} className="">
         <Input
-          {...getInputProps()}
+          {...getInputProps({ ref: inputRef })}
+          maxLength={maxLength}
+          validationStatus={validationStatus}
           id={id}
           aria-labelledby={null}
           suffix={
             !!options?.length && (
-              <div className="bg-white">
-                <InputSuffixButton {...getToggleButtonProps()} aria-label="toggle menu">
-                  <i
-                    className="bi bi-chevron-down text-body"
-                    style={{ position: "relative", top: "1px" }}
-                  ></i>
-                </InputSuffixButton>
-              </div>
+              <InputSuffixButton {...getToggleButtonProps()} aria-label="toggle menu">
+                <BsChevronDown className="text-body" style={{ top: "2px" }}></BsChevronDown>
+              </InputSuffixButton>
             )
           }
         />
@@ -188,14 +191,16 @@ export const AutocompleteOption = React.forwardRef(function AutoCompleteOption(
   const cssClass = [
     className,
     "px-2 py-1",
-    highlighted ? "bg-light" : "bg-white",
+    highlighted ? "bg-primary bg-opacity-25" : "bg-white",
     selected ? "fw-bold" : "fw-normal",
   ]
     .filter(Boolean)
     .join(" ");
   return (
-    <div className={cssClass} ref={ref} {...props}>
-      {children}
+    <div className="bg-white">
+      <div className={cssClass} ref={ref} {...props}>
+        {children}
+      </div>
     </div>
   );
 });

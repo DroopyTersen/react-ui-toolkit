@@ -1,0 +1,45 @@
+import { Meta, Story, Canvas } from "@storybook/addon-docs";
+import { PropsTable, SourceCodeLink } from "../docs";
+
+<Meta title="Hooks/usePagingStats" />
+
+# usePagingStats
+
+A hook to calculate paging statistics (start/end range, total pages)
+
+```javascript
+let { totalItems, totalPages, start, end } = usePagingStats(100, 25, 1);
+```
+
+## Import
+
+```tsx
+import { usePagingStats } from "~ui-toolkit/hooks/usePagingStats";
+```
+
+## Params
+
+<PropsTable
+  properties={[
+    {
+      name: "totalItems",
+      type: `number`,
+      description: "The total number of records the query would havea returned without paging",
+      isRequired: "Required",
+    },
+    {
+      name: "itemsPerPage",
+      type: `number`,
+      description: "The number of records to show per page",
+      isRequired: "Required",
+    },
+    {
+      name: "currentPage",
+      type: `number`,
+      description: "The currently shown page",
+      isRequired: "Required",
+    },
+  ]}
+/>
+
+<SourceCodeLink path="hooks/usePagingStats.ts">View Source</SourceCodeLink>

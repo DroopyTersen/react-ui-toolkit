@@ -1,3 +1,4 @@
+import React from "react";
 import { MemoryRouter as Router } from "react-router-dom";
 import "../src/global/styles/global.scss";
 
