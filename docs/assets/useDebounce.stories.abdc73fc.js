@@ -1,0 +1,22 @@
+var g=Object.defineProperty,f=Object.defineProperties;var v=Object.getOwnPropertyDescriptors;var r=Object.getOwnPropertySymbols;var d=Object.prototype.hasOwnProperty,c=Object.prototype.propertyIsEnumerable;var i=(t,a,o)=>a in t?g(t,a,{enumerable:!0,configurable:!0,writable:!0,value:o}):t[a]=o,s=(t,a)=>{for(var o in a||(a={}))d.call(a,o)&&i(t,o,a[o]);if(r)for(var o of r(a))c.call(a,o)&&i(t,o,a[o]);return t},l=(t,a)=>f(t,v(a));var h=(t,a)=>{var o={};for(var n in t)d.call(t,n)&&a.indexOf(n)<0&&(o[n]=t[n]);if(t!=null&&r)for(var n of r(t))a.indexOf(n)<0&&c.call(t,n)&&(o[n]=t[n]);return o};import"./index.be79fcbf.js";import{c as e,A as y,M as b}from"./Props.ae9119dc.js";import"./iframe.ad13290e.js";import"./jsx-runtime.b789c2e1.js";import{S as w}from"./SourceCodeLink.be0a1d60.js";import{P as p}from"./PropsTable.1206ad61.js";import"./string.bf3fd91c.js";const x={},k="wrapper";function m(o){var n=o,{components:t}=n,a=h(n,["components"]);return e(k,l(s(s({},x),a),{components:t,mdxType:"MDXLayout"}),e(b,{title:"Hooks/useDebounce",mdxType:"Meta"}),e("h1",null,"useDebounce Hooks"),e("p",null,`These hooks are for when we want to track something that changes quickly (mouse moves, user typing, etc...),
+but wait to trigger the onChange until the updates stop streaming in. You'd typically do this when your onChange does something expensive, like a make network call.`),e("p",null,e("a",{parentName:"p",href:"https://dev.to/droopytersen/usedebouncedeffect-hook-4204"},"Blog Post Explanation")),e("h2",null,e("inlineCode",{parentName:"h2"},"useDebouncedEffect(effectFn, val)")),e("p",null,"When we have a specific effect that should only run once the value has stopped updating"),e("pre",null,e("code",{parentName:"pre",className:"language-jsx"},`function SearchBox({ onChange, defaultValue = "" }) {
+  // We store one value for the instant updates
+  let [value, setValue] = useState(defaultValue);
+
+  // We only want to call the passed in 'onChange' once the user
+  // has stopped updating the value
+  useDebouncedEffect((debouncedValue) => onChange(debouncedValue), value, 300);
+
+  return <input value={value} onChange={(e) => setValue(e.target.value)} />;
+}
+`)),e("h3",null,"Import"),e("pre",null,e("code",{parentName:"pre",className:"language-tsx"},`import { useDebouncedEffect } from "~ui-toolkit/hooks/useDebounce";
+`)),e("h3",null,"Params"),e(p,{properties:[{name:"effectFn",type:"(debounceValue) => any",description:"The function to run when the value as stopped updating. It will receive the debounced value as a param",isRequired:"Required"},{name:"value",type:"any",description:"The value to watch",isRequired:"Required"},{name:"delay",type:"number",description:"How long to wait before triggering the effectFn. If the value gets updated before the wait is over, the wait restarts.",isRequired:"Required"}],mdxType:"PropsTable"}),e("h2",null,e("inlineCode",{parentName:"h2"},"useDebouncedValue(val)")),e("p",null,"For when we want to track a value but not until it stops updating."),e("pre",null,e("code",{parentName:"pre",className:"language-jsx"},`function SearchBox({ onChange, defaultValue = "" }) {
+  // We store one value for the instant updates
+  let [value, setValue] = useState(defaultValue);
+  let debouncedValue = useDebouncedValue(value, 400);
+
+  return <input value={value} onChange={(e) => setValue(e.target.value)} />;
+}
+`)),e("h3",null,"Import"),e("pre",null,e("code",{parentName:"pre",className:"language-tsx"},`import { useDebouncedValue } from "~ui-toolkit/hooks/useDebounce";
+`)),e("h3",null,"Params"),e(p,{properties:[{name:"value",type:"any",description:"The value to watch",isRequired:"Required"},{name:"delay",type:"number",description:"How long to wait updating the debounced value. If the value gets updated before the wait is over, the wait restarts.",isRequired:"Required"}],mdxType:"PropsTable"}),e("h3",null,"Returns"),e(p,{properties:[{name:"debouncedValue",type:"any",description:"The debounced value",isRequired:"Required"}],mdxType:"PropsTable"}),e(w,{path:"hooks/useDebounce.ts",mdxType:"SourceCodeLink"},"View Source"))}m.isMDXComponent=!0;const D=()=>{throw new Error("Docs-only story")};D.parameters={docsOnly:!0};const u={title:"Hooks/useDebounce",includeStories:["__page"]},V={};u.parameters=u.parameters||{};u.parameters.docs=l(s({},u.parameters.docs||{}),{page:()=>e(y,{mdxStoryNameToKey:V,mdxComponentAnnotations:u},e(m,null))});const _=["__page"];export{_ as __namedExportsOrder,D as __page,u as default};
+//# sourceMappingURL=useDebounce.stories.abdc73fc.js.map
