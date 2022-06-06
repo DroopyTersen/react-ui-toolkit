@@ -2,8 +2,55 @@ import React from "react";
 import { useState } from "react";
 import { PickerMulti, PickerOption, PickerSingle } from ".";
 import { useAsyncData } from "../../../hooks/useAsyncData";
-import { fruits } from "../../Autocomplete/Autocomplete.stories";
 import { Surface } from "../../Surface/Surface";
+
+interface Fruit {
+  title: string;
+}
+export const fruits: Fruit[] = [
+  {
+    title: "Apple",
+  },
+  {
+    title: "Bananna",
+  },
+  {
+    title: "Kiwi",
+  },
+  {
+    title: "Watermelon",
+  },
+  {
+    title: "Grapes",
+  },
+  {
+    title: "Tangerine",
+  },
+  {
+    title: "Lemon",
+  },
+  {
+    title: "Lime",
+  },
+  {
+    title: "Cranberry",
+  },
+  {
+    title: "Strawberry",
+  },
+  {
+    title: "Raspberry",
+  },
+  {
+    title: "Cherry",
+  },
+  {
+    title: "Blueberry",
+  },
+  {
+    title: "Orange",
+  },
+].sort((a, b) => (a.title < b.title ? -1 : 1));
 
 export default {
   title: "Forms & Inputs/Picker",
